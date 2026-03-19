@@ -30,7 +30,7 @@ public class SummarizationController {
     @PostMapping("/summarize")
     public Map<String, String> summarize(@RequestBody AskMeRequest request) throws IOException {
         System.out.println("inside controller " + request);
-        String detailedText = service.askMe(request.getText(), request.getType(), request.getTone());
+        String detailedText = service.askMe(request.getInputText(), request.getType(), request.getTone());
         Map<String, String> response = new HashMap<>();
         response.put("detailedText", detailedText);
         return response;
@@ -56,8 +56,8 @@ public class SummarizationController {
     @PostMapping("/summarizeBig")
     public Map<String, String> summarizeBig(@RequestBody AskMeRequest requestBody) throws IOException {
 
-        System.out.println("inside controller " + requestBody.getText());
-        String detailedText = service.summarizeText(requestBody.getText(), requestBody.getTone());
+        System.out.println("inside controller " + requestBody.getInputText());
+        String detailedText = service.summarizeText(requestBody.getInputText(), requestBody.getTone());
         Map<String, String> response = new HashMap<>();
         response.put("detailedText", detailedText);
         return response;

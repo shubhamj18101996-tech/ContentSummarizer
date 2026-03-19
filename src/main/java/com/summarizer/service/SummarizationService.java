@@ -38,7 +38,7 @@ public class SummarizationService {
 
     public String summarizeText(String inputText, String tone) throws IOException {
 
-        String requestText = inputText + ". Please summarize this text. and keep it short. And in "+ tone + "tone.";
+        String requestText = inputText + ". Please summarize this text. and keep it short. And in "+ tone + " tone.";
         System.out.println("request -" + requestText);
         return geminiAIClient.sendRequest(requestText);
     }

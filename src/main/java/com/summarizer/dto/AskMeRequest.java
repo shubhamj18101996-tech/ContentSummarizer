@@ -1,17 +1,17 @@
 package com.summarizer.dto;
 
 public class AskMeRequest {
-    private String text;
+    private String inputText;
     private String type;
     private String tone;
 
     // Getters and Setters
-    public String getText() {
-        return text;
+    public String getInputText() {
+        return inputText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
     }
 
     public String getType() {
