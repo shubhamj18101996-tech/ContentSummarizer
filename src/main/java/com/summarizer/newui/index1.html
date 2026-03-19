@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI-Powered Study Buddy</title>
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #121212, #121212);//e0e0e0
+            color: #e0e0e0;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            //background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 20px;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-repeat:no-repeat;
+            backgroun-position:center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .hero-section {
+            background-color: #223142;
+            color:white;
+            padding:50px;
+            text-align: center;
+        }
+        .tagline{
+            font-size:1.2em;
+            margin-bottom:10px;
+        }
+
+        .main-title {
+            font-size:2.5em;
+            margin-bottom:20px;
+        }
+        .description{
+            font-size:1.1em;
+            line-height:1.6;
+        }
+
+        label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+            height: 180px; /* Adjusted height for large text input */
+            border: 2px solid #007BFF;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            color: #333;
+            margin-bottom: 20px;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            resize: vertical; /* Allow resizing for large text input */
+        }
+
+        button {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.6);
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056B3;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script>
+        async function getDetails() {
+            const outputTextArea = document.getElementById("outputText");
+            outputTextArea.value = "Fetching details...";
+
+            const serverUrl = "http://localhost:8080/api/summarize";
+            const inputText = document.getElementById("inputText").value;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ inputText: inputText })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    outputTextArea.value = data.detailedText || "No details available.";
+                } else {
+                    outputTextArea.value = "Error: Unable to fetch response.";
+                }
+            } catch (error) {
+                outputTextArea.value = "Error: " + error.message;
+            }
+        }
+
+        async function translateText() {
+            const outputTextArea = document.getElementById("translatorOutputText");
+            const selectedLanguage = document.getElementById("languageSelect").value;
+            outputTextArea.value = "Translating...";
+
+            const serverUrl = "http://localhost:8080/api/translate";
+            const inputText = document.getElementById("translatorInputText").value;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text: inputText, language: selectedLanguage })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    outputTextArea.value = data.translatedText || "No translation available.";
+                } else {
+                    outputTextArea.value = "Error: Unable to fetch translation.";
+                }
+            } catch (error) {
+                outputTextArea.value = "Error: " + error.message;
+            }
+        }
+
+        async function summarizeBigText() {
+            const outputTextArea = document.getElementById("bigTextOutput");
+            outputTextArea.value = "Summarizing big text...";
+
+            const serverUrl = "http://localhost:8080/api/summarizeBig";
+            const inputText = document.getElementById("bigTextInput").value;
+
+            try {
+                const response = await fetch(serverUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ inputText: inputText })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    outputTextArea.value = data.detailedText || "No summary available.";
+                } else {
+                    outputTextArea.value = "Error: Unable to fetch summary.";
+                }
+            } catch (error) {
+                outputTextArea.value = "Error: " + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+<div claass="hero-section">
+    <p class="tagline">StudyBuddy: The Best Solutions for student's problems</p>
+    <h1 class="main-title">Your Own automated app helper</h1>
+    <p class="description">Meet Study Buddy, an advanced AI giving solutions to your problems. Ask me anything and get
+        answers in minutes.</p>
+</div>
+
+<!-- Summarizer Section -->
+<div class="container">
+    <h1>AI-Powered Ask me anything</h1>
+    <label for="inputText">Input Text:</label>
+    <textarea id="inputText" placeholder="Enter text to get Answer..."></textarea>
+    <button onclick="getDetails()">Ask me</button>
+    <label for="outputText">Generated Response:</label>
+    <textarea id="outputText" readonly placeholder="Your AI-generated answer will appear here."></textarea>
+</div>
+
+<!-- Translator Section -->
+<div class="container">
+    <h1>AI-Powered Translator</h1>
+    <label for="translatorInputText">Input Text:</label>
+    <textarea id="translatorInputText" placeholder="Enter text to translate..."></textarea>
+    <label for="languageSelect">Choose Language:</label>
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="zh">Chinese</option>
+        <option value="Hindi">Hindi</option>
+    </select>
+    <button onclick="translateText()">Translate</button>
+    <label for="translatorOutputText">Translated Text:</label>
+    <textarea id="translatorOutputText" readonly placeholder="Your translated text will appear here."></textarea>
+</div>
+
+<!-- Large Text Summarization Section -->
+<div class="container">
+    <h1>Summarizer for Large Text</h1>
+    <label for="bigTextInput">Input Large Text:</label>
+    <textarea id="bigTextInput" placeholder="Enter large text to summarize..."></textarea>
+    <button onclick="summarizeBigText()">Summarize</button>
+    <button onclick="summarizeBigText()">Make Summary Shorter</button> <!-- New button for shortening -->
+    <label for="bigTextOutput">Summary:</label>
+    <textarea id="bigTextOutput" readonly placeholder="Your summary will appear here."></textarea>
+</div>
+
+<footer>Crafted for innovation and creativity</footer>
+</body>
+</html>

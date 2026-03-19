@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Buddy AI</title>
+  <style>
+    /* Night Sky and Stars Theme */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(45deg, #0A0D14, #1B263B, #3E5C76); /* Diagonal gradient (45 degrees) */
+      <!--background: linear-gradient(to top, #3E5C76, #1B263B, #0A0D14);-->
+       <!--linear-gradient(to bottom, #0A0D04, #121A28);-->
+      /* Deep Navy Blue Gradient */
+      color: #E4E5E9;
+      /* Soft White for Text */
+    }
+
+    /* Header Menu (Navbar) */
+    header {
+      background-color: #0a1528;/* Slightly darker moonlit glow */
+      /* Moonlit Glow */
+      color: #E4E5E9;
+      /* Soft White */
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 1.5rem 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #E4E5E9;
+      /* Soft White */
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin: 0 1rem;
+      transition: color 0.3s, transform 0.2s, text-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #A7C5EB;
+      /* Lavender Glow */
+      transform: translateY(-2px);
+      text-shadow: 0 0 10px #A7C5EB, 0 0 20px #A7C5EB; /* Glowing effect on hover */
+    }
+
+    .container {
+      display: none;
+      /* Hidden by default */
+      background-color: #0d1a2b;<!--#1B263B;-->
+      /* Slightly Lighter Navy Blue */
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 700px;
+      margin: 20px auto;
+      text-align: center;
+      color: #E4E5E9;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .container.active {
+      display: block;
+      /* Show active section */
+    }
+
+    .home-section {
+      display: block;
+      background-color: #1B263B;
+      /* Slightly Lighter Navy Blue */
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 700px;
+      margin: 20px auto;
+      text-align: center;
+      color: #E4E5E9;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    textarea {
+      width: 90%;
+      height: 150px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 2px solid #A7C5EB;
+      /* Lavender Glow */
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #0A0D14; /* Darker Night Sky */
+      /* Night Sky */
+      color: #E4E5E9;
+      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+      transition: box-shadow 0.3s ease-in-out; /* Transition for glow effect */
+    }
+
+
+    textarea:focus, input:focus {
+      outline: none;
+      box-shadow: 0 0 8px #A7C5EB, 0 0 16px #A7C5EB; /* Glowing effect when focused */
+    }
+
+    input {
+      margin-bottom: 20px;
+    }
+
+    <!--button {
+      width: 90%;
+      padding: 12px;
+      /* Moonlit Glow */
+      color: #E4E5E9;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;;
+      margin-bottom: 20px;
+      /* Added space below the button */
+    }
+
+    button:hover {
+      background-color: #A7C5EB;
+      /* Lavender Glow */
+      transform: translateY(-3px);
+      &lt;!&ndash;box-shadow: 0 0 12px #A7C5EB, 0 0 20px #A7C5EB; /* Glowing effect on hover */&ndash;&gt;
+    }-->
+
+    button {
+        background: linear-gradient(45deg, #3E5C76, #2A4A5C, #3E5C76); /* Darker gradient background */
+        color: #E4E5E9;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow effect */
+        transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: inset 0 0 10px rgba(167, 197, 235, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+select {
+   width: 90%;
+   margin-bottom: 20px;
+   border-radius: 10px;
+   border: 2px solid #4A6D82; /* Darker muted glow */
+   padding: 10px;
+   font-size: 1rem;
+   background: linear-gradient(135deg, #1A2A3A, #2E4057); /* Darker, muted gradient */
+   color: #B0BEC5; /* Slightly darker greyish text */
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow */
+   transition: all 0.3s ease; /* Smooth transitions for hover/focus effects */
+}
+
+    /* Styling the options inside the select */
+    select option {
+        background-color: #2A3C53; /* Dark background for the options */
+        color: #B0BEC5; }
+
+    select:hover {
+        background: linear-gradient(135deg, #1B263B, #A7C5EB); /* Inverse gradient on hover */
+        border-color: #A7C5EB; /* Glowing border on hover */
+        cursor: pointer;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+    }
+
+    select:focus {
+        outline: none; /* Removes the default outline */
+        box-shadow: 0 0 10px #A7C5EB, 0 0 20px #A7C5EB; /* Glowing effect on focus */
+        border-color: #A7C5EB; /* Glowing border on focus */
+    }
+
+    label {
+        font-size: 1rem; /* Ensures consistent font size */
+        font-weight: bold; /* Makes the label text stand out */
+        color: #B0BEC5; /* Slightly muted greyish color */
+        display: block; /* Makes label a block element for better spacing */
+        margin-bottom: 8px; /* Adds some space between the label and input/select */
+        transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    }
+
+    /* Focus effect on label when corresponding input/select is focused */
+    select:focus + label, input:focus + label, textarea:focus + label {
+        color: #A7C5EB; /* Lavender glow when the input field is focused */
+        transform: translateY(-2px); /* Lift effect */
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      padding: 10px;
+      background-color: #0D1B2A;
+      /* Deep Navy Blue */
+      color: #E4E5E9;
+      font-size: 1rem;
+    }
+
+  </style>
+  <script>
+    async function getDetails() {
+        const outputTextArea = document.getElementById("outputText");
+        const selectedType = document.getElementById("typeSelect").value;
+        const selectedTone = document.getElementById("toneSelect").value;
+        outputTextArea.value = "Fetching details...";
+
+        const serverUrl = "http://localhost:8080/api/summarize";
+        const inputText = document.getElementById("inputText").value;
+
+        try {
+            const response = await fetch(serverUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: inputText, type: selectedType , tone: selectedTone})
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                outputTextArea.value = data.detailedText || "No details available.";
+            } else {
+                outputTextArea.value = "Error: Unable to fetch response.";
+            }
+        } catch (error) {
+            outputTextArea.value = "Error: " + error.message;
+        }
+    }
+
+
+
+
+    async function translateText() {
+        const outputTextArea = document.getElementById("translatorOutputText");
+        const selectedLanguage = document.getElementById("languageSelect").value;
+        outputTextArea.value = "Translating...";
+
+        const serverUrl = "http://localhost:8080/api/translate";
+        const inputText = document.getElementById("translatorInputText").value;
+
+        try {
+            const response = await fetch(serverUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: inputText, language: selectedLanguage })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                outputTextArea.value = data.translatedText || "No translation available.";
+            } else {
+                outputTextArea.value = "Error: Unable to fetch translation.";
+            }
+        } catch (error) {
+            outputTextArea.value = "Error: " + error.message;
+        }
+    }
+
+    async function summarizeBigText() {
+        const outputTextArea = document.getElementById("bigTextOutput");
+        const selectedTone = document.getElementById("toneSelect").value;
+        outputTextArea.value = "Summarizing big text...";
+
+        const serverUrl = "http://localhost:8080/api/summarizeBig";
+        const inputText = document.getElementById("bigTextInput").value;
+
+        try {
+            const response = await fetch(serverUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ inputText: inputText, tone: selectedTone })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                outputTextArea.value = data.detailedText || "No summary available.";
+            } else {
+                outputTextArea.value = "Error: Unable to fetch summary.";
+            }
+        } catch (error) {
+            outputTextArea.value = "Error: " + error.message;
+        }
+    }
+// Function to play sound when home page is loaded (requires user interaction)
+window.onload = function () {
+document.body.addEventListener('click', function () {
+const audio = new Audio('student-ai.mp3'); // Path to the audio file
+audio.play().catch(error => {
+  console.error("Failed to play audio:", error);
+});
+}, { once: true }); // Ensures this runs only once
+};
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.container, .home-section');
+  sections.forEach(section => section.style.display = "none");
+
+  const activeSection = document.getElementById(sectionId);
+  if (activeSection) activeSection.style.display = "block";
+}
+
+// Placeholder function for "Add to Notes" buttons
+function addTextToSection(sourceSectionId, sourceTextId, destinationSectionId, destinationTextId) {
+    // Retrieve elements efficiently
+    const sourceTextArea = document.querySelector(`#${sourceSectionId} #${sourceTextId}`);
+    const destinationTextArea = document.querySelector(`#${destinationSectionId} #${destinationTextId}`);
+
+    // Validate elements
+    if (!sourceTextArea || !destinationTextArea) {
+        console.error("Source or destination text area not found. Check IDs.");
+        return;
+    }
+
+    // Retrieve and trim text
+    const sourceText = sourceTextArea.value.trim();
+    if (!sourceText) {
+        alert("There's no text to transfer!");
+        return;
+    }
+
+    // Append text with line breaks
+    destinationTextArea.value += destinationTextArea.value ? `\n${sourceText}` : sourceText;
+
+    // Notify user
+    alert("Text transferred successfully!");
+}
+
+
+    function generateAndDownloadPDF(textAreaId) {
+    // Get the text content from the specified textarea
+    const textContent = document.getElementById(textAreaId)?.value.trim();
+
+    if (!textContent) {
+        alert("Please enter text in the textarea before generating the PDF.");
+        return;
+    }
+
+    fetch("http://localhost:8080/api/pdf/generate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: textContent
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to generate PDF");
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        // Create a download link and trigger file download
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "generated.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error generating the PDF. Please try again.");
+    });
+}
+
+function uploadImage() {
+    let fileInput = document.getElementById("upload-image");
+    let file = fileInput.files[0]; // Get the selected file
+    let outputTextArea = document.getElementById("notesTextArea"); // Get the textarea element
+
+    if (!file) {
+        alert("Please select an image first.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", file); // Attach the file
+
+    fetch("http://localhost:8080/api/upload", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        outputTextArea.value = data; // Set response inside the textarea
+    })
+    .catch(error => {
+        console.error("Error uploading image:", error);
+        outputTextArea.value = "Error uploading image. Please try again.";
+    });
+}
+
+
+function resetSelects() {
+        // Reset both select elements back to their first option (null value)
+        document.getElementById('typeSelect').selectedIndex = 0;
+        document.getElementById('toneSelect').selectedIndex = 0;
+
+        // Reset text areas to be blank
+        document.getElementById('inputText').value = '';
+        document.getElementById('outputText').value = '';
+
+        // Reset text areas of translate be blank
+        document.getElementById('translatorInputText').value = '';
+        document.getElementById('translatorOutputText').value = '';
+        document.getElementById('languageSelect').selectedIndex = 0;
+
+        // Reset text areas of summarize section
+        document.getElementById('bigTextInput').value = '';
+        document.getElementById('bigTextOutput').value = '';
+
+        // Reset generate-notes-section
+        document.getElementById('notesTextArea').value = '';
+        document.getElementById('bigTextOutput').value = '';
+}
+
+
+  </script>
+</head>
+
+<body>
+<header>
+  <h1>Study Buddy AI</h1>
+  <nav>
+    <a onclick="showSection('home-section')">Home</a>
+    <a onclick="showSection('ask-me-section')">Ask Me</a>
+    <a onclick="showSection('translator-section')">Translate</a>
+    <a onclick="showSection('summarizer-section')">Summarize</a>
+    <a onclick="showSection('generate-notes-section')">Generate Notes</a> <!-- Added navigation for new section -->
+  </nav>
+</header>
+
+<!-- Updated Home Section with Compatibility -->
+<div id="home-section" class="home-section">
+  <h1 style="font-size: 2.5rem; color: #A7C5EB; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+    Welcome to Study Buddy AI
+  </h1>
+  <p style="font-size: 1.2rem; color: #E4E5E9; margin-bottom: 20px;">
+    Your trusted partner for learning, translating, summarizing, and note-taking!
+  </p>
+  <!-- Decorative Image -->
+  <img src="banner.PNG" alt="Study Buddy AI Banner"
+       style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); margin-bottom: 20px; max-width: 100%; height: auto;">
+  <!-- Call to Action -->
+  <p style="font-size: 1rem; color: #A7C5EB;">
+    Use the menu above to explore our features and boost your productivity!
+  </p>
+</div>>
+
+<!-- Ask Me Section -->
+<div id="ask-me-section" class="container">
+  <h2>Ask Me Anything</h2>
+  <textarea id="inputText" placeholder="Enter text to get an answer..."></textarea>
+  <label class="label" for="languageSelect">Choose Answer Type:</label> <!-- Added label -->
+  <select id="typeSelect">
+    <option value="" disabled selected>Select Answer Type</option> <!-- Null default option -->
+    <option value="bullet points">Short (Bullet Points)</option>
+    <option value="Paragraph">Medium (Paragraph)</option>
+    <option value="Expended Summary">Detailed (Expended Summary)</option>
+  </select>
+  <label class="label" for="toneSelect">Choose Answer Tone:</label> <!-- Added label -->
+  <select id="toneSelect">
+    <option value="" disabled selected>Select Answer Tone</option> <!-- Null default option -->
+    <option value="formal">Formal</option>
+    <option value="casual">Casual</option>
+    <option value="creative">Creative</option>
+  </select>
+  <button onclick="getDetails()">Ask Me</button>
+  <textarea id="outputText" readonly placeholder="Your AI-generated answer will appear here."></textarea>
+  <button onclick="addTextToSection('ask-me-section', 'outputText', 'generate-notes-section', 'notesTextArea')">Add to Notes</button> <!-- Added button -->
+  <button onclick="resetSelects()">Reset</button>
+</div>
+
+<!-- Translator Section -->
+<div id="translator-section" class="container">
+  <h2>AI-Powered Translator</h2>
+  <textarea id="translatorInputText" placeholder="Enter text to translate..."></textarea>
+  <label for="languageSelect">Choose Language:</label> <!-- Added label -->
+  <select id="languageSelect">
+    <option value="" disabled selected>Select language</option> <!-- Null default option -->
+    <option value="en">English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="zh">Chinese</option>
+    <option value="hi">Hindi</option>
+    <option value="ta">Tamil</option>
+    <option value="te">Telugu</option>
+    <option value="k">Kanada</option>
+  </select>
+  <button onclick="translateText()">Translate</button>
+  <textarea id="translatorOutputText" readonly placeholder="Your translated text will appear here."></textarea>
+  <button onclick="addToNotes()">Add to Notes</button> <!-- Added button -->
+  <button onclick="resetSelects()">Reset</button>
+</div>
+
+<!-- Summarizer Section -->
+<div id="summarizer-section" class="container">
+  <h2>Summarizer for Large Text</h2>
+  <textarea  id="bigTextInput" placeholder="Enter large text to summarize..."></textarea>
+  <label for="toneSelect1">Choose Answer Tone:</label> <!-- Added label -->
+  <select id="toneSelect1">
+    <option value="" disabled selected>Select Answer Tone</option> <!-- Null default option -->
+    <option value="formal">Formal</option>
+    <option value="casual">Casual</option>
+    <option value="creative">Creative</option>
+  </select>
+  <button onclick="summarizeBigText()">Summarize</button>
+  <textarea id="bigTextOutput" readonly placeholder="Your summary will appear here."></textarea>
+  <button onclick="addToNotes()">Add to Notes</button> <!-- Added button -->
+  <button onclick="resetSelects()">Reset</button>
+</div>
+
+<!-- Generate Notes Section -->
+<div id="generate-notes-section" class="container">
+  <h2>Generate Notes</h2>
+  <textarea id="notesTextArea" placeholder="Type your notes here..."></textarea>
+  <h3>Upload Image</h3>
+  <input type="file" accept="image/*" id="upload-image" />
+  <button id="extract-text-image" onclick="uploadImage()">Extract Text From Image</button>
+  <button id="download-pdf" onclick="generateAndDownloadPDF('notesTextArea')">Download As PDF</button>
+  <button onclick="resetSelects()">Reset</button>
+</div>
+
+<footer>
+  Crafted for student success and innovation.
+</footer>
+</body>
+
+</html>

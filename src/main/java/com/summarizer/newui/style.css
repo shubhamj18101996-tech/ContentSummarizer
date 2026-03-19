@@ -1,0 +1,11 @@
+body, h1, h2, p { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+body { background-color: #1e1e1e; color: white; text-align: center; }
+nav { display: flex; justify-content: space-between; background: #333; padding: 15px; }
+nav .logo { font-size: 20px; font-weight: bold; }
+nav ul { display: flex; list-style: none; gap: 20px; }
+nav ul li a { text-decoration: none; color: white; }
+.hero { padding: 80px 20px; }
+.hero button { padding: 10px 20px; background: #ff6700; border: none; color: white; cursor: pointer; }
+.features { display: flex; justify-content: center; gap: 30px; margin: 40px 0; }
+.feature { background: #444; padding: 20px; border-radius: 8px; width: 30%; }
+footer { background: #222; padding: 15px; margin-top: 40px; }
