@@ -230,7 +230,7 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ text: inputText, type: selectedType , tone: selectedTone})
+                    body: JSON.stringify({ inputText: inputText, type: selectedType , tone: selectedTone})
                 });
 
                 if (response.ok) {
@@ -277,7 +277,7 @@
 
         async function summarizeBigText() {
             const outputTextArea = document.getElementById("bigTextOutput");
-            const selectedTone = document.getElementById("toneSelect").value;
+            const selectedTone = document.getElementById("toneSelect1").value;
             outputTextArea.value = "Summarizing big text...";
 
             const serverUrl = "https://contentsummarizer-54xi.onrender.com/api/summarizeBig";
@@ -510,7 +510,7 @@
     </select>
     <button onclick="translateText()">Translate</button>
     <textarea id="translatorOutputText" readonly placeholder="Your translated text will appear here."></textarea>
-    <button onclick="addToNotes()">Add to Notes</button> <!-- Added button -->
+    <button onclick="addTextToSection('translator-section', 'translatorOutputText', 'generate-notes-section', 'notesTextArea')">Add to Notes</button> <!-- Added button -->
     <button onclick="resetSelects()">Reset</button>
 </div>
 
@@ -527,7 +527,7 @@
     </select>
     <button onclick="summarizeBigText()">Summarize</button>
     <textarea id="bigTextOutput" readonly placeholder="Your summary will appear here."></textarea>
-    <button onclick="addToNotes()">Add to Notes</button> <!-- Added button -->
+    <button onclick="addTextToSection('summarizer-section', 'bigTextOutput', 'generate-notes-section', 'notesTextArea')">Add to Notes</button> <!-- Added button -->
     <button onclick="resetSelects()">Reset</button>
 </div>
 
