@@ -97,7 +97,7 @@ public class GeminiAIClient {
         }
 
         // Build Groq/OpenAI format request
-        groqBody.put("model", "llama-3.3-70b-versatile");
+        groqBody.put("model", "openai/gpt-oss-120b");
         groqBody.put("messages", List.of(
                 Map.of("role", "user", "content", textContent)
         ));
